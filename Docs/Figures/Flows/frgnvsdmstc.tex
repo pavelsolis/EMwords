@@ -1,0 +1,26 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage[outdir=./]{epstopdf}  					% Avoids errors when input figures
+\usepackage[labelsep=period,labelfont=bf]{caption}
+%\usepackage{subcaption}
+\input{../../Settings/macros_global}			% Personalized commands
+\input{../../Settings/macros_local}			    % Personalized commands
+
+\begin{document}
+	\begin{figure}[!htb]
+		\caption{Holdings of Cetes and Bonos by Nationality} \label{fig:frgnvsdmstc}
+		\begin{center}								% center the minipage on the line
+			\begin{minipage}{0.9\linewidth}
+%				\vspace{-0.4cm}
+				\begin{center}							% center the figure inside the minipage
+					\includegraphics[width=1\textwidth,height=.3\textheight]{../Figures/Flows/frgnvsdmstc} \\
+%					\includegraphics[width=1\textwidth,height=.3\textheight]{frgnvsdmstc} \\
+				\end{center}
+%				\vspace{-0.4cm}
+				\fignotes{This figure shows the net holdings of Mexican Treasury bills (cetes) and fixed-rate sovereign bonds (bonos) by investor nationality from January 2011 to \lastobsflwbdm.}
+			\end{minipage}
+		\end{center}
+	\end{figure}
+\end{document}
+% trim = {<left> <lower> <right> <upper>}

@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[margin=1in]{geometry}
+\usepackage{threeparttable}
+\usepackage{multirow}
+\usepackage{pdflscape}
+\begin{document}
+
+%\begin{landscape}
+\begin{table}[t] \centering
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\begin{threeparttable}
+\caption{The Response of the Exchange Rate to Policy Rate Surprises}
+\label{tab:factorfx}
+{\normalsize
+\begin{tabularx}{\linewidth}{lCCCC}
+
+\toprule
+&\multicolumn{2}{c}{Intraday FX}&\multicolumn{2}{c}{Daily FX} \tabularnewline \cmidrule(lr){2-3}\cmidrule(lr){4-5} \tabularnewline
+%\midrule \addlinespace[\belowrulesep]
+PRS Intraday&-1.85**&&-0.38& \tabularnewline
+&(0.89)&&(1.38)& \tabularnewline
+PRS Daily&&-1.66**&&-0.08 \tabularnewline
+&&(0.81)&&(1.34) \tabularnewline
+\midrule Observations&72&72&72&72 \tabularnewline
+R-squared&0.18&0.15&0.00&0.00 \tabularnewline
+\bottomrule \addlinespace[0cm]
+
+\end{tabularx}
+\begin{tablenotes}[para,flushleft]
+\footnotesize \textit{Notes:} This table shows the coefficient estimates in regressions of exchange rate returns (FX) on intraday (PRS Intraday) and daily (PRS Daily) changes in the 3-month swap rate. The returns are calculated with \textit{intraday} data in the first two columns and  with \textit{daily} data in the last two. Daily changes are calculated around monetary policy announcements; intraday changes are calculated starting 10 minutes before to 20 minutes after an announcement. The sample includes all regular monetary policy announcements from January 2011 to December 2019. Figures are expressed in basis points. No constant is included in the regressions. Robust standard errors are shown in parentheses. *, **, *** asterisks respectively indicate significance at the 10\%, 5\% and 1\% level.
+\end{tablenotes}
+}
+\end{threeparttable}
+\end{table}
+%\end{landscape}
+\end{document}

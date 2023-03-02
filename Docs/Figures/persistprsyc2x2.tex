@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage[outdir=./]{epstopdf}  					% Avoids errors when input figures
+\usepackage[labelsep=period,labelfont=bf]{caption}
+\usepackage{afterpage}
+\usepackage{pdflscape}
+\usepackage{subcaption}
+\input{../Settings/macros_global}			   % Personalized commands
+\input{../Settings/macros_local}			    % Personalized commands
+\pagestyle{empty}
+
+\begin{document}
+	\afterpage{
+		\begin{landscape}
+		\begin{figure}[tbph]
+			\caption*{Persistence of the Yield Curve Response to Policy Rate Surprises} \label{fig:persistprsycsq}
+			\begin{center}								% center the minipage on the line
+				\begin{minipage}{0.9\linewidth}
+					\begin{center}							% center the figure inside the minipage
+						\begin{subfigure}{.475\textwidth}
+							\includegraphics[trim={0.5cm 0cm 0.5cm 0cm},clip,height=.2\textheight,width=1\textwidth]{../Figures/persistprsgmxn02yr.eps}
+						\end{subfigure}
+						\hfill
+						\begin{subfigure}{.475\textwidth}
+							\includegraphics[trim={0.5cm 0cm 0.5cm 0cm},clip,height=.2\textheight,width=1\textwidth]{../Figures/persistprsgmxn05yr.eps}
+						\end{subfigure}
+						\vskip\baselineskip
+						\begin{subfigure}{.475\textwidth}
+							\includegraphics[trim={0.5cm 0cm 0.5cm 0cm},clip,height=.2\textheight,width=1\textwidth]{../Figures/persistprsgmxn10yr.eps}
+						\end{subfigure}
+						\hfill
+						\begin{subfigure}{.475\textwidth}
+							\includegraphics[trim={0.5cm 0cm 0.5cm 0cm},clip,height=.2\textheight,width=1\textwidth]{../Figures/persistprsgmxn30yr.eps}
+						\end{subfigure}
+					\end{center}
+					\fignotes{This figure plots the coefficient estimates and 95\% confidence intervals for the response of the 2-, 5-, 10- and 30-year yield changes to policy rate surprises. Yield changes are calculated from close of day \(t - 1\) to day \(t + k\), where \(t\) is a day with a monetary policy announcement and \(k = 0, 1, \ldots, 10\).} % The announcements are always more than ten days apart from each other, see appendix \ref{sec:calendar}. The sample includes monetary policy announcements from January 2011 to \lastobs.
+				\end{minipage}
+			\end{center}
+		\end{figure}
+		\end{landscape}
+	}
+\end{document}
+% trim = {<left> <lower> <right> <upper>}

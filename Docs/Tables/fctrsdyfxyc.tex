@@ -1,0 +1,27 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[labelsep=period,labelfont=bf]{caption}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{pdflscape}
+\usepackage{tabularx}
+\usepackage[margin=1in]{geometry}
+\input{../Settings/macros_global}			   % Personalized commands
+\input{../Settings/macros_local}			    % Personalized commands
+%\pagestyle{empty}
+
+\begin{document}
+	\begin{normalsize}
+		\begin{landscape}
+			\begin{table}
+				\begin{center}
+					\caption{Response of Asset Prices to Daily Target and Path Surprises} \label{tab:fctrsdyfxyc}
+					\begin{threeparttable}
+						\estauto{../Tables/f_fctrsdyfxyc.tex}{10}
+						\tabnote{The first column for each dependent variable shows the coefficient estimates in regressions of \textit{intraday} yield changes or exchange rate (FX) returns on target surprises; the second column adds path surprises as a regressor. Target and path surprises are obtained from \textit{daily} data. Intraday changes are calculated starting 10 minutes before to 20 minutes after a monetary policy announcement. The sample includes all regular monetary policy announcements starting on January 2011 for the exchange rate, on January 2013 for 2- 10- and 30-year yields, and on December 2014 for 5-year yields; the sample ends on \lastobs{} in all cases. Figures are expressed in basis points. Heteroskedasticity-robust standard errors are shown in parentheses. *, **, *** asterisks respectively indicate significance at the 10\%, 5\% and 1\% level.}
+					\end{threeparttable}
+				\end{center}
+			\end{table}
+		\end{landscape}
+	\end{normalsize}
+\end{document}

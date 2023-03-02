@@ -1,0 +1,48 @@
+%---------------------------------------------------------------
+% Preamble
+%---------------------------------------------------------------
+\documentclass[a4paper, 12pt]{article} 		% Document class
+\input{../Settings/packages}		   		  	  % Packages
+\input{../Settings/page_settings}   			% Page settings
+\input{../Settings/macros_global}			   % Personalized commands
+\input{../Settings/macros_local}			    % Personalized commands
+%---------------------------------------------------------------
+
+\begin{document}
+%---------------------------------------------------------------
+% Title
+%---------------------------------------------------------------
+\title{\input{../Settings/title2}
+	% \iftoggle{fulldraft}{}{\\ \large Outline}} 
+	\iftoggle{fulldraft}{
+		\hspace{-1em} \thanks{\protect\linespread{1}\protect\selectfont I am particularly grateful to Jonathan Wright for insightful discussions and feedback. I also thank Derin Aksit, Laurence Ball, Enrique Batiz, Christopher Carroll, Lalit Contractor, Jorge Luis García Ramírez, Karlye Dilts Stedman, Gregory Duffee, Eric Fischer, Raúl Ibarra Ramírez, Olivier Jeanne, Fabrizio López Gallo Dey, Claudia Ramírez Bulos, Alessandro Rebucci, and seminar participants at the 2020 Southern Finance Association meeting and Banco de México for their helpful comments and suggestions. The views in this paper are the sole responsibility of the author and should not be interpreted as reflecting the views of Banco de México or any other person associated with it. All remaining errors are mine.} % The codes used to generate the results in this paper are available in the author's website \url{https://pavelsolis.github.io/research}.
+	}
+	{\\ \large Outline}
+}
+\author{Pavel Solís 
+	\iftoggle{fulldraft}{\hspace{-0.5em} \thanks{\protect\linespread{1}\protect\selectfont Senior Economist, Financial Stability Division, Banco de México, Av. 5 de Mayo No. 1, Centro, Cuauhtémoc, CDMX 06000, México. E-mail address: \href{mailto:pavel.solis@banxico.org.mx}{\texttt{pavel.solis@banxico.org.mx}}. Declarations of interest: none.}}{} 
+}
+\iftoggle{fulldraft}{									% Turn it on/off in packages.tex
+	\date{March 2023}
+}{
+	\date{}
+}	% Closes \iftoggle{fulldraft}
+\maketitle	\vspace{-4ex}
+
+%---------------------------------------------------------------
+% Contents
+%---------------------------------------------------------------
+\graphicspath{{../Figures/}}
+\iftoggle{fulldraft}{									% Turn it on/off in packages.tex
+	\input{abstract2}
+	}{}	% Closes \iftoggle{fulldraft}
+
+\input{sections2}
+
+\iftoggle{fulldraft}{									% Turn it on/off in packages.tex
+	\input{appendix2}
+}{}	% Closes \iftoggle{fulldraft}
+
+\iftoggle{toclinks}{\maketoc \listoftodos}{}	% Turn it on/off in packages.tex
+
+\end{document}

@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\usepackage[outdir=./]{epstopdf}  					% Avoids errors when input figures
+\usepackage[labelsep=period,labelfont=bf]{caption}
+%\usepackage{subcaption}
+
+\begin{document}
+	\begin{figure}[b]
+		\caption{Holdings of Cetes by Type of Investor} \label{fig:ctsgroups}
+		\begin{center}								% center the minipage on the line
+			\begin{minipage}{0.9\linewidth}
+				\begin{center}							% center the figure inside the minipage
+					\includegraphics[width=1\textwidth,height=.3\textheight]{../Figures/Flows/ctsgroups} \\
+				\end{center}
+				\fignotes{This figure shows the net holdings of Mexican Treasury bills by type of investor from January 2011 to December 2019.}
+			\end{minipage}
+		\end{center}
+	\end{figure}
+\end{document}
+% trim = {<left> <lower> <right> <upper>}

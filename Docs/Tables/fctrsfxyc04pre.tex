@@ -1,0 +1,27 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[labelsep=period,labelfont=bf]{caption}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{pdflscape}
+\usepackage{tabularx}
+\usepackage[margin=1in]{geometry}
+\input{../Settings/macros_global}			   % Personalized commands
+\input{../Settings/macros_local}			    % Personalized commands
+%\pagestyle{empty}
+
+\begin{document}
+	\begin{normalsize}
+		\begin{landscape}
+			\begin{table}
+				\begin{center}
+					\caption{Response of Asset Prices to the Target and Path Factors: Daily Data since 2004 (Pre-GFC)} \label{tab:fctrsfxyc04pre}
+					\begin{threeparttable}
+						\estauto{../Tables/f_fctrsfxyc04pre.tex}{10}
+						\tabnote{The first column for each dependent variable shows the coefficient estimates in regressions of intraday yield changes or exchange rate returns (FX) on the target factor; the second column adds the path factor as a regressor. The target and path factors are obtained from intraday data, as explained in the main text. Intraday changes are calculated starting 10 minutes before to 20 minutes after a monetary policy announcement. The sample for the exchange rate is all regular monetary policy announcements from January 2011 to December 2019; for 2- 10- and 30-year yields, from January 2013 to December 2019; and for 5-year yields, from December 2014 to December 2019. Figures expressed in basis points. All regressions include a constant and controls. The controls are described in the main text. Robust standard errors are shown in parentheses. *, **, *** asterisks respectively indicate significance at the 10\%, 5\% and 1\% level.}
+					\end{threeparttable}
+				\end{center}
+			\end{table}
+		\end{landscape}
+	\end{normalsize}
+\end{document}

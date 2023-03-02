@@ -1,0 +1,27 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[labelsep=period,labelfont=bf]{caption}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{threeparttable}
+\usepackage{pdflscape}
+\usepackage{tabularx}
+\usepackage[margin=1in]{geometry}
+\input{../Settings/macros_global}			   % Personalized commands
+\input{../Settings/macros_local}			    % Personalized commands
+%\pagestyle{empty}
+
+\begin{document}
+	\begin{normalsize}
+		\begin{landscape}
+			\begin{table}
+				\begin{center}
+					\caption{Response of Asset Prices to Target and Path Surprises: Daily Data} \label{tab:fctrsfxycdy}
+					\begin{threeparttable}
+						\estauto{../Tables/f_fctrsfxycdy.tex}{10}
+						\tabnote{The first column for each dependent variable shows the coefficient estimates in regressions of daily yield changes or exchange rate returns (FX) on target surprises; the second column adds path surprises as a regressor. Daily changes are calculated around monetary policy announcements. The target and path surprises are also obtained from daily data. The sample includes all regular monetary policy announcements starting on January 2011 for the exchange rate, on January 2013 for 2- 10- and 30-year yields, and on December 2014 for 5-year yields; the sample ends on \lastobs{} in all cases. Figures expressed in basis points. All regressions include a constant. Robust standard errors are shown in parentheses. *, **, *** asterisks respectively indicate significance at the 10\%, 5\% and 1\% level.} %The controls are described in the main text. 
+					\end{threeparttable}
+				\end{center}
+			\end{table}
+		\end{landscape}
+	\end{normalsize}
+\end{document}
