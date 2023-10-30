@@ -39,8 +39,8 @@ save dataticflows.dta, replace
 * ------------------------------------------------------------------------------
 
 use $file_dta2, clear
-collapse (sum) target04 path04 target09 path09 target11 path11 dcts* dqbnd* dbnd* ///
-		(last) usdmxn h15t10y vix embi wti tedsprd ticesprd cds5y logmxmx ctsbanxico-bndtotal, by(datem)
+collapse (sum) target04 path04 target09 path09 target11 path11 dcts* dqbnd* dbnd* dudi* ///
+		(last) usdmxn h15t10y vix embi wti tedsprd ticesprd cds5y logmxmx ctsbanxico-uditotal, by(datem)
 
 * Prepare variables
 foreach shock in target11 target09 target04 {
@@ -58,8 +58,8 @@ replace target11 = . if datem < tm(2011m1)
 replace path11   = . if datem < tm(2011m1)
 
 * Label variables
-unab oldlabels: dctsbanxico-dqbndtotal ctsbanks ctsmutual ctspension ctsinsurers ctsothers bndbanks bndmutual bndpension bndinsurers bndothers bndforeigners bnddomestic ctsforeigners ctsdomestic
-local newlabels `" "Cetes: Banxico" "Cetes: Repos" "Cetes: Banks" "Cetes: Collateral" "Cetes: Pension Funds" "Cetes: Mutual Funds" "Cetes: Insurers" "Cetes: Others" "Cetes: Domestic" "Cetes: Foreigners" "Cetes: Total" "Bonos: Banxico" "Bonos: Repos" "Bonos: Banks" "Bonos: Collateral" "Bonos: Pension Funds" "Bonos: Mutual Funds" "Bonos: Insurers" "Bonos: Others" "Bonos: Domestic" "Bonos: Foreigners" "Bonos: Total" "Banks" "Mutual Funds" "Pension Funds" "Insurers" "Others" "Banks" "Mutual Funds" "Pension Funds" "Insurers" "Others" "Bonos: Foreigners" "Bonos: Domestic" "Cetes: Foreigners" "Cetes: Domestic" "'
+unab oldlabels: dctsbanxico-dqbndtotal dbndbanxico-duditotal ctsbanks ctsmutual ctspension ctsinsurers ctsothers ctsrepos ctscollateral bndbanks bndmutual bndpension bndinsurers bndothers bndrepos bndcollateral udibanks udimutual udipension udiinsurers udiothers udirepos udicollateral ctsforeigners ctsdomestic bndforeigners bnddomestic udiforeigners udidomestic
+local newlabels `" "Cetes: Banxico" "Cetes: Repos" "Cetes: Banks" "Cetes: Collateral" "Cetes: Pension Funds" "Cetes: Mutual Funds" "Cetes: Insurers" "Cetes: Non-Financial" "Cetes: Domestic" "Cetes: Foreigners" "Cetes: Total" "Bonos: Banxico" "Bonos: Repos" "Bonos: Banks" "Bonos: Collateral" "Bonos: Pension Funds" "Bonos: Mutual Funds" "Bonos: Insurers" "Bonos: Non-Financial" "Bonos: Domestic" "Bonos: Foreigners" "Bonos: Total" "Bonos: Banxico" "Bonos: Repos" "Bonos: Banks" "Bonos: Collateral" "Bonos: Pension Funds" "Bonos: Mutual Funds" "Bonos: Insurers" "Bonos: Non-Financial" "Bonos: Domestic" "Bonos: Foreigners" "Bonos: Total" "Udibonos: Banxico" "Udibonos: Repos" "Udibonos: Banks" "Udibonos: Collateral" "Udibonos: Pension Funds" "Udibonos: Mutual Funds" "Udibonos: Insurers" "Udibonos: Non-Financial" "Udibonos: Domestic" "Udibonos: Foreigners" "Udibonos: Total" "Banks" "Mutual Funds" "Pension Funds" "Insurers" "Non-Financial" "Cetes: Repos" "Cetes: Collateral" "Banks" "Mutual Funds" "Pension Funds" "Insurers" "Non-Financial" "Bonos: Repos" "Bonos: Collateral" "Banks" "Mutual Funds" "Pension Funds" "Insurers" "Non-Financial" "Repos" "Collateral" "Cetes: Foreigners" "Cetes: Domestic" "Bonos: Foreigners" "Bonos: Domestic" "Udibonos: Foreigners" "Udibonos: Domestic" "'
 local p : word count `oldlabels'
 forvalues i = 1/`p' {
 	local a : word `i' of `oldlabels'

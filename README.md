@@ -5,16 +5,17 @@ by Pavel Solís (pavel.solis@gmail.com)
 
 ## System Features
 The results in the paper were generated using the following:
-- Operating systems: macOS 12.2.1, Windows 10
-- Software: Stata 17
-- Add-ons: scheme-modern, regsave, texsave, coefplot
-- Expected running time: 5 min
+- Operating systems: macOS 12.2.1, Windows 10 Enterprise
+- Software: Matlab R2019a, Stata 17
+- Add-ons. Matlab: statistics toolbox. Stata: scheme-modern, grc1leg2, xtbreak
+- Restricted data sources: Bloomberg
+- Expected running time: ~6 hrs 47 min
 
 
 ## Contents of Folder
 README.md (this file)
 - Codes folder with the following subfolder:
-	- Analysis: replication script
+	- Analysis: replication codes
 - Data folder with the following subfolder:
 	- Analytic: analysis dataset
 - Docs folder with the following subfolders:
@@ -52,7 +53,6 @@ Some variables can be identified as follows:
 
 
 ## Instructions for Replication
-Execute the codes.do file to replicate the results in the paper
-- The codes store the tables and figures in the respective folder
+Execute the pq_analysis.do and the pqm_analysis.m files to replicate the results in the paper
 
 Execute the paper.tex file to generate the PDF version of the manuscript

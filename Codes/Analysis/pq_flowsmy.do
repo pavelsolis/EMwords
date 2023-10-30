@@ -5,10 +5,10 @@ use dataflowsmy.dta, clear
 
 * ------------------------------------------------------------------------------
 * Table: Summary of BdM flows
-local tbllbl "f_bdmflowssumm"
+local tbllbl "f_summflowsmy"
 eststo clear
 
-estpost summ dctsbanks dctsmutual dctspension dctsinsurers dctsothers dctsforeigners dqbndbanks dqbndmutual dqbndpension dqbndinsurers dqbndothers dqbndforeigners if idx11	// dctsrepos dctscollateral  dqbndrepos  dqbndcollateral
+estpost summ dctsbanks dctsmutual dctspension dctsinsurers dctsothers dctsrepos dctscollateral dctsforeigners dqbndbanks dqbndmutual dqbndpension dqbndinsurers dqbndothers dqbndrepos dqbndcollateral dqbndforeigners if idx11
 
 esttab using "$pathtbls/`tbllbl'.tex", replace fragment cell(( mean(fmt(%3.2f) label(Mean)) sd(fmt(%3.2f) label(Std. Dev.)) min(fmt(%3.2f) label(Min.)) max(fmt(%3.2f) label(Max.)) count(fmt(%3.0f) label(Obs.)) )) nomtitles nonumbers nonotes noobs label booktabs varlabels(, elist(dctsforeigners \midrule))	// dctscollateral
 * ------------------------------------------------------------------------------

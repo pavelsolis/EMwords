@@ -1,13 +1,13 @@
-/* Code for 'Price and Quantity Effects of Monetary Policy Actions and Statements 
-in an Emerging Economy' by Pavel Solís (pavel.solis@gmail.com), December 2021 */
+/* Code for 'Do Central Bank Words Matter in Emerging Markets? Evidence from Mexico'
+by Pavel Solís (pavel.solis@gmail.com), July 2023 */
 * \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\//////////////////////////////////////////
 * ==============================================================================
 
-
+timer on 1
 * ------------------------------------------------------------------------------
 * Preamble (uses Mac OS directory convention)
 * ------------------------------------------------------------------------------
-cd "~/Documents/GitHub/Dissertation/Ch_MPS"		// update as necessary
+cd "~/Documents/GitHub/Ch_MPS"								// update as necessary
 local pathmain `c(pwd)'
 
 * Directories
@@ -52,3 +52,5 @@ do "$pathcode/tic_flows"
 log close
 translate $file_log.smcl $file_log.pdf, replace
 erase $file_log.smcl
+timer off 1
+timer list 1

@@ -7,11 +7,11 @@
 use dataprsfxyc.dta, clear
 local figlbl "factorslines"
 line target04 target_ttdm target datem if idx04, lpattern(solid shortdash_dot dash) ///
-		title("Z1 (Target) Surprises") xtitle("") ytitle("Basis Points", placement(n) orient(horizontal) size(small)) yscale(outergap(-20)) legend(off)
+		title("Z1 (Target) Surprises") xtitle("") ytitle("Basis Points", placement(n) orient(horizontal) size(small)) xlabel(528(48)768) yscale(outergap(-20)) legend(off)
 		gr_edit yaxis1.title.DragBy 4 17
 		graph save $pathfigs/target, replace
 line path04 path_ttdm path datem if idx04, lpattern(solid shortdash_dot dash) ///
-		title("Z2 (Path) Surprises") xtitle("") ytitle("Basis Points", placement(n) orient(horizontal) size(small)) yscale(outergap(-20)) legend(label(1 "Daily since 2004") label(2 "Daily since 2011") label(3 "Intraday since 2011") pos(6) ring(6) row(1))
+		title("Z2 (Path) Surprises") xtitle("") ytitle("Basis Points", placement(n) orient(horizontal) size(small)) xlabel(528(48)768) yscale(outergap(-20)) legend(label(1 "Daily since 2004") label(2 "Daily since 2011") label(3 "Intraday since 2011") pos(6) ring(6) row(1))
 		gr_edit yaxis1.title.DragBy 4 17
 		graph save $pathfigs/path, replace
 grc1leg2 $pathfigs/target.gph $pathfigs/path.gph, cols(1) legendfrom($pathfigs/path.gph)
@@ -24,7 +24,14 @@ quietly graph export $pathfigs/`figlbl'.pdf , replace
 * Figure 3.2. Monetary Policy Dimensions with Tight Windows
 use dataprsfxyc.dta, clear
 local figlbl "factorspointstg"
-scatter path target if ( radius > 6.5 & regular & !inlist(date,td(25oct2013),td(29sep2016),td(15dec2016),td(18may2017),td(14may2020),td(12nov2020),td(12aug2021)) ) | inlist(date,td(22jun2017)), ///
+replace posmrkr = 1 if inlist(date,td(6jun2014),td(24jun2021),td(12may2022),td(23jun2022))
+replace posmrkr = 5 if inlist(date,td(20jan2012),td(29sep2016),td(15dec2016),td(9feb2017))
+replace posmrkr = 6 if inlist(date,td(8mar2013),td(6sep2013))
+replace posmrkr = 7 if inlist(date,td(27apr2012),td(30jun2016),td(30mar2023))
+replace posmrkr = 9 if inlist(date,td(15aug2019),td(16dec2021))
+replace posmrkr = 11 if inlist(date,td(11feb2021),td(9feb2023))
+replace posmrkr = 12 if inlist(date,td(17nov2016))
+scatter path target if ( radius > 6.5 & regular & !inlist(date,td(18may2017),td(22jun2017),td(14may2020),td(12nov2020),td(12aug2021),td(11nov2021)) ) | inlist(date,td(20jan2012),td(12may2022)), ///
 		mlabel(datelbl) mlabv(posmrkr) yline(0) xline(0) ytitle(, placement(n) orient(horizontal)) ///
 		yscale(range(-15 11) outergap(-28)) ylabel(-15(5)10) xscale(range(-46 21)) xlabel(-40(10)20)
 gr_edit yaxis1.title.DragBy 4 33
@@ -115,19 +122,49 @@ use dataflowsmy.dta, clear
 
 * ------------------------------------------------------------------------------
 * Figures: Cetes, bonds, foreign vs domestic
+use dataflowsmy.dta, clear
+local tbllbl "frgvsdomctsbnd"
+line bnddomestic bndforeigners ctsdomestic ctsforeigners datem if datem >= tm(2011m1), lpattern(solid dash dash_dot "-_") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25)) xlabel(,nogrid) ylabel(,nogrid) tline(2016m12 2021m2)
+gr_edit yaxis1.title.DragBy 4 33
+quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
 
-local tbllbl "frgnvsdmstc"
-line bndforeigners bnddomestic ctsforeigners ctsdomestic datem if datem >= tm(2011m1), lpattern(solid "-" dash_dot "-_") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25))
+local tbllbl "frgvsdomall"
+twoway 	line bnddomestic bndforeigners ctsdomestic ctsforeigners datem if datem >= tm(2011m1), yaxis(1) lpattern(solid dash dash_dot "-_") xtitle("") ytitle("MXN Billions", placement(n) orient(horizontal)) yscale(outergap(-25)) || ///
+		line udidomestic udiforeigners datem if datem >= tm(2011m1), yaxis(2) lpattern("_--" longdash_dot) xtitle("") ytitle("UDI Billions", placement(n) orient(horizontal) axis(2)) yscale(outergap(-25) axis(2))
+gr_edit yaxis1.title.DragBy 4 32
+gr_edit yaxis2.title.DragBy 4 -28
+quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
+
+local tbllbl "frgvsdomudi"
+label var udidomestic "Domestic (LHS)"
+label var udiforeigners "Foreigners"
+//line udidomestic udiforeigners datem if datem >= tm(2011m1), lpattern(solid dash) ytitle("UDI Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25))
+twoway line udidomestic datem if datem >= tm(2011m1), lpattern(solid) ytitle("UDI Billions", axis(1) placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25)) || line udiforeigners datem if datem >= tm(2011m1), yaxis(2) lpattern(dash) ytitle("", axis(2)) xlabel(,nogrid) ylabel(,nogrid)
+gr_edit yaxis1.title.DragBy 4 29
+quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
+
+local tbllbl "categscts"
+line ctsbanks ctsmutual ctspension ctsinsurers ctsothers datem if datem >= tm(2011m1), lpattern(solid dash_dot "-" "-_" "-..") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25)) xlabel(,nogrid) ylabel(,nogrid) tline(2016m12)
+gr_edit yaxis1.title.DragBy 4 31
+quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
+
+local tbllbl "categsbnd"
+line bndbanks bndmutual bndpension bndinsurers bndothers datem if datem >= tm(2011m1), lpattern(solid dash_dot "-" "-_" "-..") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25)) xlabel(,nogrid) ylabel(,nogrid) tline(2021m2)
 gr_edit yaxis1.title.DragBy 4 32
 quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
 
-local tbllbl "bndgroups"
-line bndbanks bndmutual bndpension bndinsurers bndothers datem if datem >= tm(2011m1), lpattern(solid dash_dot "-" "-_" "-..") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25))
+local tbllbl "categsudi"
+line udibanks udimutual udipension udiinsurers udiothers datem if datem >= tm(2011m1), lpattern(solid dash_dot "-" "-_" "-..") ytitle("UDI Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25)) xlabel(,nogrid) ylabel(,nogrid)
+gr_edit yaxis1.title.DragBy 4 29
+quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
+
+local tbllbl "reposcollatctsbnd"
+line bndrepos bndcollateral ctsrepos ctscollateral datem if datem >= tm(2011m1), lpattern(solid dash dash_dot "-_") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25))
 gr_edit yaxis1.title.DragBy 4 30
 quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
 
-local tbllbl "ctsgroups"
-line ctsbanks ctsmutual ctspension ctsinsurers ctsothers datem if datem >= tm(2011m1), lpattern(solid dash_dot "-" "-_" "-..") ytitle("MXN Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25))
-gr_edit yaxis1.title.DragBy 4 30
+local tbllbl "reposcollatudi"
+line udirepos udicollateral datem if datem >= tm(2011m1), lpattern(solid dash) ytitle("UDI Billions", placement(n) orient(horizontal)) xtitle("") yscale(outergap(-25))
+gr_edit yaxis1.title.DragBy 4 25
 quiet graph export $pathfigs/Flows/`tbllbl'.eps, replace
 * ------------------------------------------------------------------------------

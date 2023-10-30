@@ -7,13 +7,16 @@ use $file_dta2, clear
 scalar alpha = 0.05
 local regcmd reg								// xtreg
 local regopt r level(`= 100*(1-alpha)')
+local condit if tin(1jan2011,30jun2023)
+local sfx ""									// pre post
 local maxlag = 1
 
 local vars gmxn02yr_ttdy gmxn05yr_ttdy gmxn10yr_ttdy gmxn30yr_ttdy
 foreach t in 11 {	// 04 09 00 07 _ttdm _ttwd
 	// regressions
 	foreach v in `vars' {
-	
+		tempvar v2
+		gen `v2' = L`maxlag'.`v'*100
 		local indvars target`t' path`t'
 		
 		// variables to store the betas and confidence intervals
@@ -26,22 +29,23 @@ foreach t in 11 {	// 04 09 00 07 _ttdm _ttwd
 		}
 		
 		// controls
-			local ctrl`v'`t' l(1/`maxlag').d`v' l(1/`maxlag').usdmxn l(1/`maxlag').h15t10y l(1/`maxlag').vix l(1/`maxlag').embi l(1/`maxlag').wti l(1/`maxlag').tedsprd l(1/`maxlag').ticesprd l(1/`maxlag').cds5y l(1/`maxlag')d.logmxmx
+			local ctrl`v'`t' `v2' l(1/`maxlag').dlogusdmxn l(1/`maxlag').h15t10y l(1/`maxlag').vix l(1/`maxlag').embi l(1/`maxlag').wti l(1/`maxlag').tedsprd l(1/`maxlag').ticesprd l(1/`maxlag').cds5y l(1/`maxlag').dlogmexbol
 		
 		forvalues h = 0/$horizon {
 			// response variables
-			capture gen `v'`t'`h' = (f`h'.`v' - l.`v')*100		// expressed in basis points
+			capture gen `v'`t'`h' = f`h'.`v'*100					// change in basis points
 			
 			// one regression for each horizon
 			if `h' == 0 {
-				`regcmd' `v'`t'`h' `indvars' `ctrl`v'`t'', `regopt'	// on-impact effect
+				`regcmd' `v'`t'`h' `indvars' `ctrl`v'`t'' `condit', `regopt'	// on-impact effect
+				//estat sbsingle, nodots breakvars(`v2') all gen(wdt`v' lrt`v')
 				foreach shock in `indvars' {
 					local pvalue = (2 * ttail(e(df_r),abs(_b[`shock']/_se[`shock'])))
 					if `pvalue' < alpha local `shock'`v'  = 1*_b[`shock']
 					else local `shock'`v' = 0
 				}
 			}
-			quiet `regcmd' `v'`t'`h' `indvars' `ctrl`v'`t'', `regopt'
+			quiet `regcmd' `v'`t'`h' `indvars' `ctrl`v'`t'' `condit', `regopt'		//
 			
 			capture {				
 			foreach shock in `indvars' {
@@ -83,7 +87,7 @@ foreach t in 11 {	// 04 09 00 07 _ttdm _ttwd
 		}	// `v' variable
 
 		graph combine `graphs`shock'`t'', rows(1) ycommon
-		graph export $pathfigs/LPs/`shk'/`shk'`t'YC.eps, replace
+		graph export $pathfigs/LPs/`shk'/`shk'`t'YC`sfx'.eps, replace
 		graph drop _all
 	}		// `shock'
 }		// `t' tenor
