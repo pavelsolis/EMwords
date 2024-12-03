@@ -1,4 +1,4 @@
-# Do Central Bank Words Matter in Emerging Markets? Evidence from Mexico
+# [Do Central Bank Words Matter in Emerging Markets? Evidence from Mexico](https://www.sciencedirect.com/science/article/pii/S0164070423000708)
 
 by Pavel Solís (pavel.solis@gmail.com)
 
